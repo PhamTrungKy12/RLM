@@ -2,12 +2,13 @@ from irt import prob_correct, update_theta, theta_to_level
 from typing import Optional
 
 class Session:
-    def __init__(self, list_question: list, topic: str, theta: float = 0.0):
+    def __init__(self, list_question, topic, theta=0.0):
         self.list_question = list_question
         self.topic = topic
         self.theta = theta
         self.history = []
-        self.detected_answers = []  # tất cả câu đã trả lời
+        self.detected_answers = []
+        self.current_question_id = None
 
     def get_question_by_id(self, qid: str) -> Optional[dict]:
         for q in self.list_question:

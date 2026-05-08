@@ -1,15 +1,10 @@
-import requests
-
-OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL_NAME = "gemma3:4b"
-
+from google import genai
+client = genai.Client()
 def call_llm(prompt: str) -> str:
-    response = requests.post(
-        OLLAMA_URL,
-        json={
-            "model": MODEL_NAME,
-            "prompt": prompt,
-            "stream": False  # tắt streaming, đợi response hoàn chỉnh
-        }
+
+    # The client gets the API key from the environment variable `GEMINI_API_KEY`.
+
+    response = client.models.generate_content(
+        model="gemini-3-flash-preview", contents=prompt
     )
-    return response.json()["response"].strip()
+    return response.text
